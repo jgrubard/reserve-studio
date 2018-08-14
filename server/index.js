@@ -4,6 +4,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const db = require('./db');
 
+app.use(require('body-parser').json());
+
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use('/api', require('./routes'));

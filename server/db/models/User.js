@@ -6,6 +6,8 @@ const User = conn.define('user', {
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
   password: Sequelize.STRING,
+}, {
+  timestamps: false
 });
 
 module.exports = User;

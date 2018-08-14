@@ -1,5 +1,6 @@
 const app = require('express').Router();
 
-app.use('/users', require('./users'))
+app.use('/sessions', require('./sessions'));
+app.use('/users', require('./users'));
 
 module.exports = app;
