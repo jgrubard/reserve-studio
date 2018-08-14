@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import UserList from './Users/UserList';
 
-import { getUsersFromServer } from '../store';
+import { getUsersFromServer, getUserFromToken } from '../store';
 
 class App extends Component {
   componentDidMount() {
-    const { loadUsers } = this.props;
+    const { loadUsers, loadLoggedUser } = this.props;
+    loadLoggedUser();
     loadUsers();
   }
 
@@ -29,6 +30,12 @@ const mapState = null;
 
 const mapDispatch = dispatch => {
   return {
+    loadLoggedUser: () => {
+      const token = window.localStorage.getItem('token');
+      if(token) {
+        dispatch(getUserFromToken(token));
+      }
+    },
     loadUsers: () => dispatch(getUsersFromServer())
   }
 }

@@ -17,4 +17,4 @@ app.get('/', (req, res, next) => {
 
 app.listen(PORT, () => console.log(`** Listening on Port ${PORT} **`));
 
-db.syncAndSeed();
+// db.syncAndSeed();

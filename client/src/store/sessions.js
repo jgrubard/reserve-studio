@@ -5,7 +5,6 @@ const GOT_USER = 'GOT_USER';
 const gotUser = (user) => ({ type: GOT_USER, user });
 
 export const attemptLogin = (credentials) => {
-  // console.log('credentials', credentials)
   return dispatch => {
     return axios.post('/api/sessions', credentials)
       .then(res => res.data)
@@ -22,6 +21,13 @@ export const getUserFromToken = (token) => {
     return axios.get(`/api/sessions/${token}`)
       .then(res => res.data)
       .then(user => dispatch(gotUser(user)));
+  }
+}
+
+export const logout = () => {
+  return dispatch => {
+    window.localStorage.removeItem('token');
+    dispatch(gotUser({}));
   }
 }
 

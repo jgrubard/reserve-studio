@@ -1,24 +1,34 @@
 const app = require('express').Router();
 const { User } = require('../db').models;
 const jwt = require('jwt-simple');
+const bcrypt = require('bcryptjs');
 
 app.post('/', (req, res, next) => {
-  const credentials = req.body;
+  const { email, password } = req.body;
   User.findOne({
-    where: credentials
+    where: { email }
   })
   .then(user => {
-    if(user) {
-      const token = jwt.encode({ id: user.id }, 'foo');
-      // console.log('token', token)
-      return token;
-    }
-    throw { status: 401 };
+    const hash = user.password;
+    bcrypt.compare(password, hash)
+      .then(result => {
+        if(result) {
+          return user;
+        }
+        throw { status: 401 }
+      })
+      .then(user => {
+        if(user) {
+          const token = jwt.encode({ id: user.id }, 'foo');
+          return token;
+        }
+        throw { status: 401 };
+      })
+      .catch(err => {
+        throw(err)
+      })
+      .then(token => res.send(token))
   })
-  .catch(err => {
-    throw(err);
-  })
-  .then(token => res.send(token))
 })
 
 app.get('/:token', (req, res, next) => {
@@ -33,8 +43,8 @@ app.get('/:token', (req, res, next) => {
           throw { status: 401 }
         }
       })
-      // .then(user => res.send)
-  } catch(exception) {
+  }
+  catch(exception) {
     throw exception;
   }
 })
