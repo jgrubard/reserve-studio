@@ -2,6 +2,7 @@ const { conn, models } = require('./index');
 const { User } = models;
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
+const JEREMY_PASSWORD = process.env.JEREMY_PASSWORD;
 
 // console.log(bcrypt);
 
@@ -11,7 +12,7 @@ const seed = () => {
       firstName: 'Jeremy',
       lastName: 'Grubard',
       email: 'jgrubard@gmail.com',
-      password: bcrypt.hashSync('jeremy', salt)
+      password: bcrypt.hashSync(JEREMY_PASSWORD, salt)
     })
   ])
 }

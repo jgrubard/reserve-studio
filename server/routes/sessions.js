@@ -2,6 +2,7 @@ const app = require('express').Router();
 const { User } = require('../db').models;
 const jwt = require('jwt-simple');
 const bcrypt = require('bcryptjs');
+const JWT_KEY = process.env.JWT_KEY;
 
 app.post('/', (req, res, next) => {
   const { email, password } = req.body;
@@ -19,7 +20,7 @@ app.post('/', (req, res, next) => {
       })
       .then(user => {
         if(user) {
-          const token = jwt.encode({ id: user.id }, 'foo');
+          const token = jwt.encode({ id: user.id }, JWT_KEY);
           return token;
         }
         throw { status: 401 };
@@ -34,7 +35,7 @@ app.post('/', (req, res, next) => {
 app.get('/:token', (req, res, next) => {
   const { token } = req.params;
   try {
-    const id = jwt.decode(token, 'foo').id;
+    const id = jwt.decode(token, JWT_KEY).id;
     User.findById(id)
       .then(user => {
         if(user) {
