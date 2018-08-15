@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './Users/Login';
+import CalendarPage from './CalendarPage';
 import { connect } from 'react-redux';
 
 import { logout } from '../store';
@@ -18,6 +19,7 @@ const Home = ({ user, isLogged, logout }) => {
           <div>
             <h3>Welcome, {user.firstName}!</h3>
             <button className='btn btn-warning' onClick={logout}>Logout</button>
+            <CalendarPage />
           </div>
         )
       }

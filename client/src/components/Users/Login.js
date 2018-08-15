@@ -28,7 +28,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { email, password } = this.state;
     const { onChange, onSubmit } = this;
     return (
