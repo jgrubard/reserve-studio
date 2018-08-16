@@ -4,6 +4,7 @@ const { User } = models;
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const JEREMY_PW = process.env.JEREMY_PW;
+const SU_PW = process.env.SU_PW;
 
 const seed = () => {
   return Promise.all([
@@ -12,6 +13,12 @@ const seed = () => {
       lastName: 'Grubard',
       email: 'jgrubard@gmail.com',
       password: bcrypt.hashSync(JEREMY_PW, salt)
+    }),
+    User.create({
+      firstName: 'Supattra',
+      lastName: 'Samanyaphon',
+      email: 'su@gmail.com',
+      password: bcrypt.hashSync(SU_PW, salt)
     })
   ])
 }

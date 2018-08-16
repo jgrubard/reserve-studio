@@ -17,20 +17,24 @@ class TimeSlot extends Component {
   }
 
   render() {
-    const { first, reservation, deleteReservation } = this.props;
+    const { user, first, reservation, deleteReservation } = this.props;
     const next = dateFns.addMinutes(first, 30);
     return (
       // <div style={Object.assign({}, styles.container, styles.item)}>
       <div style={styles.container}>
         <p>{dateFns.format(first, 'hh:mm a')} - {dateFns.format(next, 'hh:mm a')}</p>
         {
-          reservation ? (
+          !!reservation && reservation.userId === user.id && 
             <button className='btn btn-danger' onClick={() => deleteReservation(reservation.id)}>Release Spot</button>
-          ) : (
-            <button disabled={!!reservation} className='btn btn-primary' onClick={this.reserveSlot}>Reserve</button>
-          )
         }
-        
+        {
+          !!reservation && reservation.userId !== user.id && 
+            <button disabled={true} className='btn btn-secondary'>Reserved</button>
+        }
+        {
+          !reservation && 
+          <button className='btn btn-primary' onClick={this.reserveSlot}>Reserve</button>
+        }
       </div>
     );
   }
