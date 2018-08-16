@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Home from './Home';
 import UserList from './Users/UserList';
+import Day from './Day';
 
 import { getUsersFromServer, getUserFromToken } from '../store';
 
@@ -19,7 +20,8 @@ class App extends Component {
       <Router>
         <div className='container'>
           <Route exact path='/' component={ Home } />
-          <Route exact path='/users' component={ UserList } />
+          {/* <Route exact path='/users' component={ UserList } /> */}
+          <Route exact path='/calendar/:day' component={(match) => <Day day={match.match.params.day} />} />
         </div>
       </Router>
     );

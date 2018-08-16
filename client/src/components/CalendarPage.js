@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import dateFns from 'date-fns';
 
 class CalendarPage extends Component {
@@ -11,17 +12,19 @@ class CalendarPage extends Component {
     this.renderHeader = this.renderHeader.bind(this);
     this.renderDays = this.renderDays.bind(this);
     this.renderCells = this.renderCells.bind(this);
-    this.onDateClick = this.onDateClick.bind(this);
+    // this.onDateClick = this.onDateClick.bind(this);
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
   }
 
-  onDateClick(day) {
-    console.log(day);
-    this.setState({
-      selectedDate: day
-    })
-  }
+  // onDateClick(day) {
+    // console.log(day);
+    // this.setState({
+      // selectedDate: day
+    // })
+    
+
+  // }
 
   previousMonth() {
     this.setState({
@@ -97,10 +100,10 @@ class CalendarPage extends Component {
         const today = dateFns.format(new Date(), 'dddd, MMMM D YYYY');
         const eachDay = dateFns.format(cloneDay, 'dddd, MMMM D YYYY');
         days.push(
-          <div
-            className='col'
+          <Link
+            to={`/calendar/${day}`}
             key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+            className='col'
             style={
               i === 0 || i === 6 ? (
                 today === eachDay ? (
@@ -124,7 +127,8 @@ class CalendarPage extends Component {
             >
               {formattedDate}
             </span>
-          </div>
+          {/* </div> */}
+          </Link>
         );
         day = dateFns.addDays(day, 1);
       }

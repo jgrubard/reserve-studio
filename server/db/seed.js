@@ -1,10 +1,13 @@
+require('dotenv').config();
 const { conn, models } = require('./index');
 const { User } = models;
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
-const JEREMY_PASSWORD = process.env.JEREMY_PASSWORD;
+const JEREMY_PW = process.env.JEREMY_PW;
 
-// console.log(bcrypt);
+// console.log('**PW**', process.env.JEREMY_PW);
+
+// console.log('***JWT***', process.env.JWT_KEY)
 
 const seed = () => {
   return Promise.all([
@@ -12,7 +15,7 @@ const seed = () => {
       firstName: 'Jeremy',
       lastName: 'Grubard',
       email: 'jgrubard@gmail.com',
-      password: bcrypt.hashSync(JEREMY_PASSWORD, salt)
+      password: bcrypt.hashSync(JEREMY_PW, salt)
     })
   ])
 }

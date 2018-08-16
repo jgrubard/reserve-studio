@@ -1,5 +1,4 @@
 const app = require('express').Router();
-module.exports = app;
 const { User } = require('../db').models;
 
 app.get('/', (req, res, next) => {
@@ -7,3 +6,5 @@ app.get('/', (req, res, next) => {
     .then(users => res.send(users))
     .catch(next);
 });
+
+module.exports = app;
