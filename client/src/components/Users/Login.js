@@ -32,10 +32,10 @@ class Login extends Component {
     const { email, password } = this.state;
     const { onChange, onSubmit } = this;
     return (
-      <div>
-        <input name='email' value={email} onChange={onChange} className='form-control' placeholder='email' />
-        <input name='password' value={password} onChange={onChange} className='form-control' placeholder='password' type='password' />
-        <button className='btn btn-success' onClick={onSubmit}>Login</button>
+      <div style={styles.login}>
+        <input style={styles.input} name='email' value={email} onChange={onChange} className='form-control' placeholder='email' />
+        <input style={styles.input} name='password' value={password} onChange={onChange} className='form-control' placeholder='password' type='password' />
+        <button style={styles.input} className='btn btn-success' onClick={onSubmit}>Login</button>
       </div>
     );
   }
@@ -50,3 +50,12 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(Login);
+
+const styles = {
+  login: {
+    width: '300px'
+  },
+  input: {
+    margin: '10 0'
+  }
+}

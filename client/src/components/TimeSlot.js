@@ -12,15 +12,14 @@ class TimeSlot extends Component {
   }
 
   reserveSlot() {
-    const {user, first, createReservation } = this.props;
+    const {user, reservedUser, first, createReservation } = this.props;
     createReservation({ userId: user.id, time: first });
   }
 
   render() {
-    const { user, first, reservation, deleteReservation } = this.props;
+    const { user, reservedUser, first, reservation, deleteReservation } = this.props;
     const next = dateFns.addMinutes(first, 30);
     return (
-      // <div style={Object.assign({}, styles.container, styles.item)}>
       <div style={styles.container}>
         <p>{dateFns.format(first, 'hh:mm a')} - {dateFns.format(next, 'hh:mm a')}</p>
         {
@@ -29,7 +28,9 @@ class TimeSlot extends Component {
         }
         {
           !!reservation && reservation.userId !== user.id && 
-            <button disabled={true} className='btn btn-secondary'>Reserved</button>
+            <div>
+              <p>Reserved by:<br />{reservedUser.firstName} {reservedUser.lastName}</p>
+            </div>
         }
         {
           !reservation && 
@@ -40,18 +41,16 @@ class TimeSlot extends Component {
   }
 }
 
-const mapState = ({ reservations, user }, { first }) => {
+const mapState = ({ reservations, user, users }, { first }) => {
   const reservation = reservations.find(res => {
-    // console.log('1', dateFns.format(first));
-    // console.log('2', dateFns.format(res.time));
-    // console.log(dateFns.format(res.time) === dateFns.format(first));
-    // console.log('-----');
     return dateFns.format(res.time) === dateFns.format(first);
   });
-  // console.log(reservation);
+  const reservedUser = reservation && users.find(user => user.id === reservation.userId)
   return {
     reservation,
     user,
+    reservedUser,
+    users, 
     first
   }
 }

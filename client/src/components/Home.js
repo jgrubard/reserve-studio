@@ -3,12 +3,9 @@ import Login from './Users/Login';
 import CalendarPage from './CalendarPage';
 import { connect } from 'react-redux';
 
-import { logout } from '../store';
-
-const Home = ({ user, isLogged, logout }) => {
+const Home = ({ isLogged }) => {
   return (
     <div>
-      <h2>Welcome to Photo Studio Reservations!</h2>
       {
         !isLogged ? (
           <div>
@@ -17,8 +14,6 @@ const Home = ({ user, isLogged, logout }) => {
           </div>
         ) : (
           <div>
-            <h3>Welcome, {user.firstName}!</h3>
-            <button className='btn btn-warning' onClick={logout}>Logout</button>
             <CalendarPage />
           </div>
         )
@@ -36,10 +31,4 @@ const mapState = ({ user }) => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    logout: () => dispatch(logout())
-  }
-}
-
-export default connect(mapState, mapDispatch)(Home);
+export default connect(mapState)(Home);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 const dateFns = require('date-fns');
 
@@ -45,15 +46,18 @@ class Day extends Component {
     const third = dateFns.addHours(second, 3.5);
     return (
       <div>
-        <h2>{dateFns.format(day, 'dddd, MMMM DD, YYYY')}</h2>
+        <h2>
+          {dateFns.format(day, 'dddd, MMMM DD, YYYY')}
+          &nbsp;
+          <Link to='/'>
+            <button className='btn btn-warning'>Return to Calendar</button>
+          </Link>
+        </h2>
         <div className='row'>
           {this.createRow(first)}
           {this.createRow(second)}
           {this.createRow(third)}
         </div>
-
-
-               
       </div>
     );
   }

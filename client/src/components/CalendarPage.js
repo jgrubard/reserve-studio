@@ -12,19 +12,9 @@ class CalendarPage extends Component {
     this.renderHeader = this.renderHeader.bind(this);
     this.renderDays = this.renderDays.bind(this);
     this.renderCells = this.renderCells.bind(this);
-    // this.onDateClick = this.onDateClick.bind(this);
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
   }
-
-  // onDateClick(day) {
-    // console.log(day);
-    // this.setState({
-      // selectedDate: day
-    // })
-    
-
-  // }
 
   previousMonth() {
     this.setState({
@@ -43,7 +33,7 @@ class CalendarPage extends Component {
     const { previousMonth, nextMonth } = this;
     const dateFormat = 'MMMM YYYY';
     return (
-      <div className='row'>
+      <div className='row' style={styles.header}>
         <div className='col' onClick={previousMonth}>
           <button className='btn btn-info'>Previous Month</button>
         </div>
@@ -58,18 +48,16 @@ class CalendarPage extends Component {
   }
 
   renderDays() {
-    const dateFormat = 'dddd';
     const days = [0, 1, 2, 3, 4, 5, 6];
     const startDate = dateFns.startOfWeek(this.state.currentMonth);
 
     return (
-      <div className='row'>
+      <div className='row' style={styles.dayRow}>
         {
           days.map((day, index) => {
-            // console.log(day, index)
             return (
-              <div className='col' key={index}>
-                {dateFns.format(dateFns.addDays(startDate, index), dateFormat)}
+              <div className='col' key={index} style={styles.days}>
+                {dateFns.format(dateFns.addDays(startDate, index), 'dddd')}
               </div>
             )
           })
@@ -92,6 +80,8 @@ class CalendarPage extends Component {
     let day = startDate
     let formattedDate = '';
 
+    // console.log('day', dateFns.format(day, 'YYYY-MM-DD'))
+
     while(day <= endDate) {
       for(let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
@@ -101,7 +91,8 @@ class CalendarPage extends Component {
         const eachDay = dateFns.format(cloneDay, 'dddd, MMMM D YYYY');
         days.push(
           <Link
-            to={`/calendar/${day}`}
+            // to={`/calendar/${day}`}
+            to={`/calendar/${dateFns.format(day, 'YYYY-MM-DD')}`}
             key={day}
             className='col'
             style={
@@ -144,11 +135,8 @@ class CalendarPage extends Component {
   }
 
   render() {
-    // console.log(dateFns);
-    // console.log(this.state)
     return(
       <div>
-        <h2>Calendar</h2>
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
@@ -160,6 +148,16 @@ class CalendarPage extends Component {
 export default CalendarPage;
 
 const styles = {
+  header: {
+    textAlign: 'center',
+    marginTop: '20px' 
+  },
+  days: {
+    textAlign: 'center'
+  },
+  dayRow: {
+    margin: '10px'
+  },
   today: {
     border: '5px solid blue'
   },

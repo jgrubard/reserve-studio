@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import UserList from './Users/UserList';
 import Day from './Day';
+import Nav from './Nav';
+import Dashboard from './Users/Dashboard';
 
 import { getUsersFromServer, getUserFromToken, getReservationsFromServer } from '../store';
 
@@ -19,10 +21,15 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className='container'>
-          <Route exact path='/' component={ Home } />
-          {/* <Route exact path='/users' component={ UserList } /> */}
-          <Route exact path='/calendar/:day' component={(match) => <Day day={match.match.params.day} />} />
+        <div>
+          <div style={styles.header}>
+            <Route component={({ history }) => <Nav history={ history } />} />
+          </div>
+          <div className='container'>
+            <Route exact path='/' component={ Home } />
+            <Route exact path='/calendar/:day' component={({ match }) => <Day day={match.params.day} />} />
+            <Route exact path='/dashboard' component={ Dashboard } />
+          </div>
         </div>
       </Router>
     );
@@ -45,3 +52,10 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(App);
+
+const styles = {
+  header: {
+    padding: '10 20',
+    backgroundColor: 'lightgrey'
+  }
+}

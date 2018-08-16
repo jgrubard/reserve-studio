@@ -24,10 +24,13 @@ export const getUserFromToken = (token) => {
   }
 }
 
-export const logout = () => {
+export const logout = (history) => {
   return dispatch => {
     window.localStorage.removeItem('token');
     dispatch(gotUser({}));
+    if(history.location.pathname !== '/') {
+      history.push('/');
+    }
   }
 }
 
