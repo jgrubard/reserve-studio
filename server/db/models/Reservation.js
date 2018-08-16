@@ -7,7 +7,10 @@ const Reservation = conn.define('reservation', {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  time: Sequelize.STRING,
+  time: {
+    type: Sequelize.STRING,
+    unique: true
+  }
 })
 
 module.exports = Reservation;

@@ -5,10 +5,6 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const JEREMY_PW = process.env.JEREMY_PW;
 
-// console.log('**PW**', process.env.JEREMY_PW);
-
-// console.log('***JWT***', process.env.JWT_KEY)
-
 const seed = () => {
   return Promise.all([
     User.create({

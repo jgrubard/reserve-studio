@@ -13,4 +13,11 @@ app.post('/', (req, res, next) => {
     .catch(next);
 });
 
+app.delete('/:id', (req, res, next) => {
+  Reservation.findById(req.params.id)
+    .then(reservation => reservation.destroy())
+    .then(() => res.sendStatus(201))
+    .catch(next);
+})
+
 module.exports = app;

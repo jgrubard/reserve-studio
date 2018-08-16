@@ -6,13 +6,14 @@ import Home from './Home';
 import UserList from './Users/UserList';
 import Day from './Day';
 
-import { getUsersFromServer, getUserFromToken } from '../store';
+import { getUsersFromServer, getUserFromToken, getReservationsFromServer } from '../store';
 
 class App extends Component {
   componentDidMount() {
-    const { loadUsers, loadLoggedUser } = this.props;
+    const { loadUsers, loadLoggedUser, loadReservations } = this.props;
     loadLoggedUser();
     loadUsers();
+    loadReservations();
   }
 
   render() {
@@ -38,7 +39,8 @@ const mapDispatch = dispatch => {
         dispatch(getUserFromToken(token));
       }
     },
-    loadUsers: () => dispatch(getUsersFromServer())
+    loadUsers: () => dispatch(getUsersFromServer()),
+    loadReservations: () => dispatch(getReservationsFromServer())
   }
 }
 
