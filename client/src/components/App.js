@@ -7,15 +7,17 @@ import UserList from './Users/UserList';
 import Day from './Day';
 import Nav from './Nav';
 import Dashboard from './Users/Dashboard';
+import SignUp from './Users/SignUp';
 
-import { getUsersFromServer, getUserFromToken, getReservationsFromServer } from '../store';
+import { getUsersFromServer, getUserFromToken, getReservationsFromServer, getStudentsFromServer } from '../store';
 
 class App extends Component {
   componentDidMount() {
-    const { loadUsers, loadLoggedUser, loadReservations } = this.props;
+    const { loadUsers, loadLoggedUser, loadReservations, loadStudents } = this.props;
     loadLoggedUser();
     loadUsers();
     loadReservations();
+    loadStudents();
   }
 
   render() {
@@ -29,6 +31,7 @@ class App extends Component {
             <Route exact path='/' component={ Home } />
             <Route exact path='/calendar/:day' component={({ match }) => <Day day={match.params.day} />} />
             <Route exact path='/dashboard' component={ Dashboard } />
+            <Route exact path='/signup' component={ SignUp } />
           </div>
         </div>
       </Router>
@@ -47,7 +50,8 @@ const mapDispatch = dispatch => {
       }
     },
     loadUsers: () => dispatch(getUsersFromServer()),
-    loadReservations: () => dispatch(getReservationsFromServer())
+    loadReservations: () => dispatch(getReservationsFromServer()),
+    loadStudents: () => dispatch(getStudentsFromServer())
   }
 }
 

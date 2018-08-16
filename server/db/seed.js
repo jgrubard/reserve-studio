@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { conn, models } = require('./index');
-const { User } = models;
+const { User, Student } = models;
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const JEREMY_PW = process.env.JEREMY_PW;
@@ -19,6 +19,10 @@ const seed = () => {
       lastName: 'Samanyaphon',
       email: 'su@gmail.com',
       password: bcrypt.hashSync(SU_PW, salt)
+    }),
+    Student.create({
+      studentId: '256',
+      email: 'glenn@gmail.com'
     })
   ])
 }
