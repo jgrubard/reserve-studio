@@ -31,7 +31,7 @@ class App extends Component {
             <Route exact path='/' component={ Home } />
             <Route exact path='/calendar/:day' component={({ match }) => <Day day={match.params.day} />} />
             <Route exact path='/dashboard' component={ Dashboard } />
-            <Route exact path='/signup' component={ SignUp } />
+            <Route exact path='/signup' component={ ({ history }) => <SignUp history={history} /> } />
           </div>
         </div>
       </Router>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { signup } from '../../store';
+
 class SignUp extends Component {
   constructor() {
     super();
@@ -16,6 +18,7 @@ class SignUp extends Component {
     }
     this.onChange = this.onChange.bind(this);
     this.validateStudentId = this.validateStudentId.bind(this);
+    this.attemptSignUp = this.attemptSignUp.bind(this);
   }
 
   validateStudentId() {
@@ -29,6 +32,12 @@ class SignUp extends Component {
     }
   }
 
+  attemptSignUp() {
+    const { signupUser } = this.props;
+    const { email, firstName, lastName, password } = this.state;
+    signupUser({ email, firstName, lastName, password });
+  }
+
   onChange(ev) {
     const { name, value } = ev.target;
     const change = {}
@@ -38,8 +47,7 @@ class SignUp extends Component {
 
   render() {
     const { studentId, email, firstName, lastName, password } = this.state;
-    // console.log(studentId, email);
-    const { onChange } = this;
+    const { onChange, attemptSignUp } = this;
     return (
       <div>
         {
@@ -55,8 +63,8 @@ class SignUp extends Component {
               <input className='form-control' placeholder='First Name' name='firstName' value={firstName} onChange={onChange} />
               <input className='form-control' placeholder='Last Name' name='lastName' value={lastName} onChange={onChange} />
               <input className='form-control' placeholder='Email Address' name='email' value={email} onChange={onChange} />
-              <input className='form-control' placeholder='Password' name='password' value={password} onChange={onChange} />
-              <button className='btn btn-primary'>Submit</button>
+              <input className='form-control' placeholder='Password' type='password' name='password' value={password} onChange={onChange} />
+              <button className='btn btn-primary' onClick={attemptSignUp}>Submit</button>
             </div>
           )
         }
@@ -76,4 +84,10 @@ const mapState = ({ students }) => {
   }
 }
 
-export default connect(mapState)(SignUp);
+const mapDispatch = (dispatch, { history }) => {
+  return {
+    signupUser: (user) => dispatch(signup(user, history))
+  }
+}
+
+export default connect(mapState, mapDispatch)(SignUp);
