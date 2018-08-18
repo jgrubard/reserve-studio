@@ -24,7 +24,7 @@ class Nav extends Component {
   }
 
   render() {
-    const { user, isLogged } = this.props;
+    const { user, isLogged, isAdmin } = this.props;
     const { isOpen } = this.state;
     const { toggle, logoutUser } = this;
     const dropdown = isOpen ? ' show' : '';
@@ -46,6 +46,13 @@ class Nav extends Component {
                   <div className={`dropdown-menu${dropdown}`}>
                     <Link to='/' className='dropdown-item' onClick={this.toggle}>Calendar</Link>
                     <Link to='/dashboard' className='dropdown-item' onClick={this.toggle}>Dashboard</Link>
+                    {
+                      isAdmin &&
+                        <div>
+                          <div className='dropdown-divider'></div>
+                          <Link to='/admin/dashboard' className='dropdown-item' onClick={this.toggle}>Admin</Link>
+                        </div>
+                    }
                     <div className='dropdown-divider'></div>
                     <div className='dropdown-item' onClick={logoutUser}>Logout</div>
                   </div>
@@ -60,9 +67,11 @@ class Nav extends Component {
 
 const mapState = ({ user }) => {
   const isLogged = !!user.id;
+  const { isAdmin } = user;
   return {
     user,
-    isLogged
+    isLogged,
+    isAdmin
   }
 }
 

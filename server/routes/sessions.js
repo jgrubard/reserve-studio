@@ -57,10 +57,12 @@ app.get('/:token', (req, res, next) => {
     const id = jwt.decode(token, JWT_KEY).id;
     User.findById(id)
       .then(user => {
+        // console.log(user);
         if(user) {
           return res.send(user);
         } else {
-          console.log('before throwing 401')
+          console.log('before throwing 401') // this is the error coming up randomly... why does the user not exist?
+
           throw { status: 401 }
         }
       })

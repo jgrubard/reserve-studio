@@ -13,12 +13,17 @@ class TimeSlot extends Component {
 
   reserveSlot() {
     const {user, reservedUser, first, createReservation } = this.props;
+    // console.log('first', first);
+    // let time = JSON.stringify(first)
+    // console.log('time', time);
     createReservation({ userId: user.id, time: first });
   }
 
   render() {
     const { user, reservedUser, first, reservation, deleteReservation } = this.props;
     const next = dateFns.addMinutes(first, 30);
+    // console.log('first', first);
+    // console.log('next', next);
     return (
       <div style={styles.container}>
         <p>{dateFns.format(first, 'hh:mm a')} - {dateFns.format(next, 'hh:mm a')}</p>
@@ -43,8 +48,12 @@ class TimeSlot extends Component {
 
 const mapState = ({ reservations, user, users }, { first }) => {
   const reservation = reservations.find(res => {
+    // console.log('res.time:', dateFns.format(res.time));
+    // console.log('first:', dateFns.format(first));
     return dateFns.format(res.time) === dateFns.format(first);
+    // return JSON.stringify(res.time) === JSON.stringify(first);
   });
+  console.log('RESERVATION:', reservation)
   const reservedUser = reservation && users.find(user => user.id === reservation.userId)
   return {
     reservation,

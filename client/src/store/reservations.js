@@ -17,10 +17,14 @@ export const getReservationsFromServer = () => {
 }
 
 export const createReservationOnServer = (reservation) => {
+  console.log('res:', reservation)
   return dispatch => {
     return axios.post('/api/reservations', reservation)
       .then(res => res.data)
-      .then(reservation => dispatch(createReservation(reservation)))
+      .then(reservation => {
+        console.log('new res:', reservation)
+        dispatch(createReservation(reservation))
+      })
   }
 }
 

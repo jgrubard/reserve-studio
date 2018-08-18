@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 const Home = ({ isLogged }) => {
   return (
-    <div>
+    <div style={{ margin: '10px' }}>
       {
         !isLogged ? (
           <div>
-            <h3>Log in Below to reserve a time block!</h3>
+            <h4>Log in to reserve a time block!</h4>
             <Login />
             <p>Don't have an account?</p>
             <Link to='/signup'>

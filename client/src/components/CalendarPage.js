@@ -38,7 +38,7 @@ class CalendarPage extends Component {
           <button className='btn btn-info'>Previous Month</button>
         </div>
         <div className='col'>
-          <h3>{dateFns.format(currentMonth, dateFormat)}</h3>
+          <h3>{dateFns.format(currentMonth, dateFormat)} WINTER QUARTER</h3>
         </div>
         <div className='col' onClick={nextMonth}>
           <button className='btn btn-info'>Next Month</button>
@@ -91,8 +91,8 @@ class CalendarPage extends Component {
         const eachDay = dateFns.format(cloneDay, 'dddd, MMMM D YYYY');
         days.push(
           <Link
-            // to={`/calendar/${day}`}
-            to={`/calendar/${dateFns.format(day, 'YYYY-MM-DD')}`}
+            to={`/calendar/${day}`}
+            // to={`/calendar/${dateFns.format(day, 'YYYY-MM-DD')}`}
             key={day}
             className='col'
             style={

@@ -25,7 +25,7 @@ class Day extends Component {
   createColumn(time) {
     let hours = [];
     let count = 0;
-    // console.log(component)
+    // console.log('time:', time)
     while(count < 7) {
       hours.push(
         <div key={count}>
@@ -44,6 +44,11 @@ class Day extends Component {
     const first = dateFns.addHours(day, 9);
     const second = dateFns.addHours(first, 3.5);
     const third = dateFns.addHours(second, 3.5);
+
+    // console.log('first:', first);
+    // console.log('second:', second);
+    // console.log('third:', third); // all of these times are the proper format
+
     return (
       <div>
         <h2>
@@ -64,6 +69,7 @@ class Day extends Component {
 }
 
 const mapState = (state, { day }) => {
+  // console.log('DAY', day)
   return {
     day
   }

@@ -7,6 +7,9 @@ import UserList from './Users/UserList';
 import Day from './Day';
 import Nav from './Nav';
 import Dashboard from './Users/Dashboard';
+import AdminDashboard from './Admin/AdminDashboard';
+import DashUsers from './Admin/DashUsers';
+import ManageReservations from './Admin/ManageReservations';
 import SignUp from './Users/SignUp';
 
 import { getUsersFromServer, getUserFromToken, getReservationsFromServer, getStudentsFromServer } from '../store';
@@ -31,6 +34,9 @@ class App extends Component {
             <Route exact path='/' component={ Home } />
             <Route exact path='/calendar/:day' component={({ match }) => <Day day={match.params.day} />} />
             <Route exact path='/dashboard' component={ Dashboard } />
+            <Route path='/admin/dashboard' component={ AdminDashboard } />
+            <Route exact path='/admin/dashboard/users' component={ DashUsers } />
+            <Route exact path='/admin/dashboard/reservations' component={ ManageReservations } />
             <Route exact path='/signup' component={ ({ history }) => <SignUp history={history} /> } />
           </div>
         </div>

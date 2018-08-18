@@ -11,6 +11,10 @@ const User = conn.define('user', {
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
   password: Sequelize.STRING,
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 }, {
   timestamps: false
 });

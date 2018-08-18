@@ -49,22 +49,28 @@ class SignUp extends Component {
     const { studentId, email, firstName, lastName, password } = this.state;
     const { onChange, attemptSignUp } = this;
     return (
-      <div>
+      <div style={{ margin: '10px' }}>
         {
           !this.state.approved ? (
             <div>
-              <input className='form-control' placeholder='Student ID Number' name='studentId' value={studentId} onChange={onChange} />
-              <input className='form-control' placeholder='Email Address' name='email' value={email} onChange={onChange} />
-              <button className='btn btn-primary' onClick={this.validateStudentId}>Submit</button>
-              { this.state.error && <h4 style={{ color: 'red' }}>{this.state.error}</h4>}
+              <h4>First, we need to check that you're a student.</h4>
+              <div style={styles.fields}>
+                <input style={styles.input} className='form-control' placeholder='Student ID Number' name='studentId' value={studentId} onChange={onChange} />
+                <input style={styles.input} className='form-control' placeholder='Email Address' name='email' value={email} onChange={onChange} />
+                <button className='btn btn-primary' onClick={this.validateStudentId}>Submit</button>
+                { this.state.error && <h4 style={{ color: 'red' }}>{this.state.error}</h4>}
+              </div>
             </div>
           ) : (
             <div>
-              <input className='form-control' placeholder='First Name' name='firstName' value={firstName} onChange={onChange} />
-              <input className='form-control' placeholder='Last Name' name='lastName' value={lastName} onChange={onChange} />
-              <input className='form-control' placeholder='Email Address' name='email' value={email} onChange={onChange} />
-              <input className='form-control' placeholder='Password' type='password' name='password' value={password} onChange={onChange} />
-              <button className='btn btn-primary' onClick={attemptSignUp}>Submit</button>
+              <h4>Now, let's get signed up so we can reserve a spot!</h4>
+              <div style={styles.fields}>
+                <input style={styles.input} className='form-control' placeholder='First Name' name='firstName' value={firstName} onChange={onChange} />
+                <input style={styles.input} className='form-control' placeholder='Last Name' name='lastName' value={lastName} onChange={onChange} />
+                <input style={styles.input} className='form-control' placeholder='Email Address' name='email' value={email} onChange={onChange} />
+                <input style={styles.input} className='form-control' placeholder='Password' type='password' name='password' value={password} onChange={onChange} />
+                <button className='btn btn-primary' onClick={attemptSignUp}>Submit</button>
+              </div>
             </div>
           )
         }
@@ -91,3 +97,12 @@ const mapDispatch = (dispatch, { history }) => {
 }
 
 export default connect(mapState, mapDispatch)(SignUp);
+
+const styles = {
+  input: {
+    margin: '10 0'
+  },
+  fields: {
+    width: '300px'
+  }
+}

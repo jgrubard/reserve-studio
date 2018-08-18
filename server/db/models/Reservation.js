@@ -1,6 +1,9 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
 
+// let date = new Date();
+// console.log('DATE', date, typeof date)
+
 const Reservation = conn.define('reservation', {
   id: {
     type: Sequelize.UUID,
@@ -8,9 +11,11 @@ const Reservation = conn.define('reservation', {
     primaryKey: true,
   },
   time: {
-    type: Sequelize.STRING,
+    type: Sequelize.JSONB,
     unique: true
   }
+}, {
+  timestamps: false
 })
 
 module.exports = Reservation;
