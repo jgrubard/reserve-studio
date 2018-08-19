@@ -26,7 +26,7 @@ class SignUp extends Component {
     const { students } = this.props;
     const student = students.find(student => student.studentId === studentId && student.email === email)
     if(student) {
-      this.setState({ approved: true, error: '', email });
+      this.setState({ approved: true, error: '', email, firstName: student.firstName, lastName: student.lastName });
     } else {
       this.setState({ error: 'We\'re sorry, but we can\'t seem to find you...' })
     }
@@ -63,7 +63,7 @@ class SignUp extends Component {
             </div>
           ) : (
             <div>
-              <h4>Now, let's get signed up so we can reserve a spot!</h4>
+              <h4>Welcome {this.state.firstName}, create a password so you can reserve your first spot!</h4>
               <div style={styles.fields}>
                 <input style={styles.input} className='form-control' placeholder='First Name' name='firstName' value={firstName} onChange={onChange} />
                 <input style={styles.input} className='form-control' placeholder='Last Name' name='lastName' value={lastName} onChange={onChange} />
